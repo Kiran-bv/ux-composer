@@ -1,0 +1,52 @@
+{
+    "tableStyle": [
+        {
+            "view": "generic",
+            "styles": {
+                "minWidth": {"minWidth": 700},
+                "backgroundColor": {"backgroundColor": "green","color":"white"},
+                "color":{"color":"white"}
+            }
+        },
+        {
+            "view": "grid"
+        }
+    ],
+    "tableData": [
+        {
+            "name": "Frozen yoghurt",
+            "calories": 0,
+            "fat": 4,
+            "carbs": 6,
+            "protein": 7
+        },
+        {
+            "name": "Ice cream sandwich",
+            "calories": 0,
+            "fat": 4,
+            "carbs": 6,
+            "protein": 7
+        },
+        {
+            "name": "Eclair",
+            "calories": 0,
+            "fat": 4,
+            "carbs": 6,
+            "protein": 7
+        },
+        {
+            "name": "Cupcake",
+            "calories": 0,
+            "fat": 4,
+            "carbs": 6,
+            "protein": 7
+        },
+        {
+            "name": "Gingerbread",
+            "calories": 0,
+            "fat": 4,
+            "carbs": 6,
+            "protein": 7
+        }
+    ]
+}

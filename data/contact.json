@@ -1,0 +1,146 @@
+{
+    "contact": {
+        "formFields": [
+            {
+                "label": "First Name",
+                "name": "firstname",
+                "type": "text",
+                "validations": {
+                    "required": {
+                        "value": true,
+                        "message": "Field is Required"
+                    },
+                    "maxLength": {
+                        "value": 8,
+                        "message": "Too Long"
+                    },
+                    "minLength": {
+                        "value": 4,
+                        "message": "Too Short"
+                    }
+                }
+            },
+            {
+                "label": "Last Name",
+                "view": "row",
+                "name": "lastname",
+                "type": "text",
+                "validations": {
+                    "required": {
+                        "value": true,
+                        "message": "Field is Required"
+                    },
+                    "maxLength": {
+                        "value": 8,
+                        "message": "Too Long"
+                    },
+                    "minLength": {
+                        "value": 4,
+                        "message": "Too Short"
+                    }
+                }
+            },
+            {
+                "label": "Password",
+                "view": "column",
+                "name": "password",
+                "type": "password",
+                "validations": {
+                    "required": {
+                        "value": true,
+                        "message": "Field is Required"
+                    },
+                    "maxLength": {
+                        "value": 8,
+                        "message": "Too Long"
+                    },
+                    "minLength": {
+                        "value": 4,
+                        "message": "Too Short"
+                    }
+                }
+            },
+            {
+                "label": "Gender",
+                "type": "radio",
+                "styles": {
+                    "direction": "row"
+                },
+                "name": "gender",
+                "controlLabels": [
+                    {
+                        "label": "Female",
+                        "value": "female"
+                    },
+                    {
+                        "label": "Male",
+                        "value": "male"
+                    },
+                    {
+                        "label": "Other",
+                        "value": "other"
+                    }
+                ],
+                "validations": {
+                    "required": {
+                        "value": true,
+                        "message": "Field is Required"
+                    }
+                }
+            },
+            {
+                "label": "Hobbies",
+                "type": "checkbox",
+                "name": "hobbies",
+                "formLabels": [
+                    {
+                        "label": "Music",
+                        "value": "music",
+                        "defaultCheck": true
+                    },
+                    {
+                        "label": "Reading Books",
+                        "value": "books",
+                        "defaultCheck": false
+                    },
+                    {
+                        "label": "Cricket",
+                        "value": "cricket",
+                        "defaultCheck": true
+                    }
+                ],
+                "validations": {
+                    "required": {
+                        "value": true,
+                        "message": "Field is Required"
+                    }
+                }
+            },
+            {
+                "label": "Age1",
+                "type": "select",
+                "name": "age",
+                "menuItems": [
+                    {
+                        "label": "Ten",
+                        "value": "10"
+                    },
+                    {
+                        "label": "Twenty",
+                        "value": "20"
+                    },
+                    {
+                        "label": "Thirty",
+                        "value": "30"
+                    }
+                ],
+                "validations": {
+                    "required": {
+                        "value": true,
+                        "message": "Field is Required"
+                    }
+                }
+            }
+        ]
+    }
+}

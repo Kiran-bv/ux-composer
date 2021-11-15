@@ -1,0 +1,89 @@
+{
+    "view":"top",
+    "menuStyle": [
+        {
+            "view": "topNav",
+            "styles": {
+                "minWidth": {
+                    "minWidth": 700
+                },
+                "backgroundColor": {
+                    "backgroundColor": "green",
+                    "color": "white"
+                },
+                "color": {
+                    "color": "white"
+                }
+            }
+        },
+        {
+            "view": "grid"
+        }
+    ],
+    "searchBar": true,
+    "drawer":true,
+    "menuData": [
+        {
+            "name": "Home",
+            "path": "/home"
+        },
+        {
+            "name": "Services",
+            "path": "/services"
+        },
+        {
+            "name": "Gallery",
+            "path": "/card"
+        },
+        {
+            "name": "Table",
+            "path": "/table"
+        },
+        {
+            "name": "Contact",
+            "path": "/contact",
+            "fields": [
+                {
+                    "label": "Name",
+                    "type": "text",
+                    "length": [
+                        "xs",
+                        "small",
+                        "medium",
+                        "large",
+                        "xl"
+                    ],
+                    "width": [
+                        "xs",
+                        "small",
+                        "medium",
+                        "large",
+                        "xl"
+                    ]
+                },
+                {
+                    "label": "Age",
+                    "type": "number"
+                },
+                {
+                    "label": "Email",
+                    "type": "email"
+                }
+            ],
+            "routeData": {
+                "pathname": "/contact",
+                "search": " ",
+                "hash": "#the-hash",
+                "state": {
+                    "api": {
+                        "view": "form",
+                        "insertResource": "insertContact",
+                        "getResource": "getContact",
+                        "test": "test"
+                    }
+                    
+                }
+            }
+        }
+    ]
+}
