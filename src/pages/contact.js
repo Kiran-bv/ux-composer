@@ -14,7 +14,13 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
+import { useSession } from "next-auth/react"
+
 export default function Contact(props) {
+
+  const { data: session } = useSession();
+
+  console.log("session data ,",session);
 
   const [formFields, setFormFields] = useState([]);
 

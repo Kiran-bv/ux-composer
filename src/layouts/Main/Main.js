@@ -15,7 +15,8 @@ import GAppBarFixed from './components/GAppBarFixed'
 
 import pages from '../navigation';
 
-const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
+const Main = ({ children, colorInvert = false, bgcolor = 'transparent',menu }) => {
+  console.log("Main Component ::::: ", menu.navs[0]);
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -65,7 +66,7 @@ const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
         <Container paddingY={1}>
           <Topbar
             onSidebarOpen={handleSidebarOpen}
-            pages={pages}
+            pages={menu.navs[0]}
             colorInvert={trigger ? false : colorInvert}
           />
         </Container>

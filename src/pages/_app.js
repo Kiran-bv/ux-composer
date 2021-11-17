@@ -14,9 +14,17 @@ import { Provider } from 'react-redux'
 import { useStore } from '../redux/store'
 import Main from '../layouts/Main';
 
-export default function App({ Component, pageProps }) {
+import { SessionProvider } from "next-auth/react"
+import AppConfig from '../../appConfig'
+
+export default function App({ Component, pageProps:{ session, ...pageProps } }) {
   const store = useStore(pageProps.initialReduxState)
+
+  console.log(":::::: Session object :::::: ",session);
+  console.log(":::::: pageProps object :::::: ",pageProps);
+  
   return (
+    <SessionProvider session={session}>
     <Provider store={store}>
     <React.Fragment>
       <Head>
@@ -28,13 +36,14 @@ export default function App({ Component, pageProps }) {
       </Head>
       
       <Page>
-        <Main>
+        <Main menu={pageProps.menu}>
           <Component {...pageProps} />
         </Main>
       </Page>
       
     </React.Fragment>
     </Provider>
+    </SessionProvider>
   );
 }
 
@@ -42,3 +51,19 @@ App.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
+export async function getStaticProps() {
+  const res = await fetch(AppConfig.baseUrl+AppConfig.api.menu);
+  const data = await res.json();
+  console.log("getServerSideProps ::: ########## Menu JSON Data :::::: ", data);
+
+  // const footerRes = await fetch(AppConfig.baseUrl+AppConfig.api.footer);
+  // const footerData = await footerRes.json();
+  // console.log("getServerSideProps ::: ########## Footer Data JSON Data :::::: ", footerData);
+
+  return {
+      props: { 
+        menu: data
+       // footer: footerData
+      }
+  }
+}
