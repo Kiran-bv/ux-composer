@@ -14,25 +14,14 @@ const NavItem = ({ title, id, items, colorInvert = false }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openedPopoverId, setOpenedPopoverId] = useState(null);
 
-  // const handleClick = (event, popoverId) => {
-  //   setAnchorEl(event.target);
-  //   setOpenedPopoverId(popoverId);
-  // };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-    setOpenedPopoverId(null);
-  };
-
-  const handlePopoverOpen = (event,popoverId) => {
-    alert('hehhehehe' + popoverId+','+id);
+  const handleClick = (event, popoverId) => {
     setAnchorEl(event.target);
     setOpenedPopoverId(popoverId);
   };
 
-  const handlePopoverClose = () => {
-    setOpenedPopoverId(null);
+  const handleClose = () => {
     setAnchorEl(null);
+    setOpenedPopoverId(null);
   };
 
   const [activeLink, setActiveLink] = useState('');
@@ -50,8 +39,7 @@ const NavItem = ({ title, id, items, colorInvert = false }) => {
         alignItems={'center'}
         aria-describedby={id}
         sx={{ cursor: 'pointer' }}
-        onMouseEnter={(e) => handlePopoverOpen(e, id)} 
-        onMouseLeave={handlePopoverClose}
+        onClick={(e) => handleClick(e, id)}
       >
         <Typography
           fontWeight={openedPopoverId === id || hasActiveLink() ? 700 : 400}
@@ -72,7 +60,7 @@ const NavItem = ({ title, id, items, colorInvert = false }) => {
       <Popover
         elevation={3}
         id={id}
-        open={openedPopoverId == id}
+        open={openedPopoverId === id}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{

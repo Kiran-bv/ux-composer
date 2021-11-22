@@ -3,7 +3,7 @@
         {
             "org": "public",
             "orgName": "CloudSeed",
-            "orgSchema": "",
+            "orgSchema": "login",
             "orgIcon": "",
             "elements": [
                 {

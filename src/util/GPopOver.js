@@ -9,6 +9,8 @@ import Grid from '@mui/material/Grid';
 
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
+import Link from 'next/link'
+import GPopOverData from './GPopOverData';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -17,13 +19,14 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function GPopOver({open,anchorEl,data,id}) {
+export default function GPopOver({open,anchorEl,data,id,colorInvert}) {
 
-  console.log("GPopOver ::: ",data);
+  //console.log("GPopOver ::: ",data);
 
   return (
     <div>
       <Popover
+        elevation={3}
         id={id}
         sx={{
           pointerEvents: 'none',
@@ -32,11 +35,11 @@ export default function GPopOver({open,anchorEl,data,id}) {
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left',
+          horizontal: 'center',
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'left',
+          horizontal: 'center',
         }}
         PaperProps={{
           style: { width: '100%',height:'50%' },
@@ -44,6 +47,10 @@ export default function GPopOver({open,anchorEl,data,id}) {
         //onClose={handlePopoverClose}
         disableRestoreFocus
       >
+        {
+          true && <GPopOverData items={data} colorInvert={colorInvert}/>
+        }
+        {/* 
         <Box sx={{ flexGrow: 1 }}>
 
           {
@@ -61,7 +68,10 @@ export default function GPopOver({open,anchorEl,data,id}) {
                               size="large"
                               href={'/home'}
                             >
-                              {element.displayName}
+                              <Link href={element.url ? '/product/'+element.url :''}>
+                                  {element.displayName}
+                              </Link>
+                              
                             </Button>
                         </Box>
                         <Box sx={{disply:'flex'}}>
@@ -111,21 +121,8 @@ export default function GPopOver({open,anchorEl,data,id}) {
               </>
             ))
           }
-            {/* <Grid container spacing={2}>
-              <Grid item xs={8}>
-                <Item>xs=8 {data}</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>xs=4 {data}</Item>
-              </Grid>
-              <Grid item xs={4}>
-                <Item>xs=4 {data}</Item>
-              </Grid>
-              <Grid item xs={8}>
-                <Item>xs=8 {data}</Item>
-              </Grid>
-            </Grid> */}
         </Box>
+        */}
       </Popover>
     </div>
   );

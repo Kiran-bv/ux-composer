@@ -36,7 +36,7 @@ export default function App({ Component, pageProps:{ session, ...pageProps } }) 
       </Head>
       
       <Page>
-        <Main menu={pageProps.menu}>
+        <Main>
           <Component {...pageProps} />
         </Main>
       </Page>
@@ -51,19 +51,19 @@ App.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
-export async function getStaticProps() {
-  const res = await fetch(AppConfig.baseUrl+AppConfig.api.menu);
-  const data = await res.json();
-  console.log("getServerSideProps ::: ########## Menu JSON Data :::::: ", data);
+// export async function getStaticProps() {
+//   const res = await fetch(AppConfig.baseUrl+AppConfig.api.menu);
+//   const data = await res.json();
+//   console.log("getServerSideProps ::: ########## Menu JSON Data :::::: ", data);
 
-  // const footerRes = await fetch(AppConfig.baseUrl+AppConfig.api.footer);
-  // const footerData = await footerRes.json();
-  // console.log("getServerSideProps ::: ########## Footer Data JSON Data :::::: ", footerData);
+//   // const footerRes = await fetch(AppConfig.baseUrl+AppConfig.api.footer);
+//   // const footerData = await footerRes.json();
+//   // console.log("getServerSideProps ::: ########## Footer Data JSON Data :::::: ", footerData);
 
-  return {
-      props: { 
-        menu: data
-       // footer: footerData
-      }
-  }
-}
+//   return {
+//       props: { 
+//         menu: data
+//        // footer: footerData
+//       }
+//   }
+// }

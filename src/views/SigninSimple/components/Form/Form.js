@@ -8,6 +8,10 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import GoogleIcon from '@mui/icons-material/Google';
+
+import {signIn } from "next-auth/react"
 
 const validationSchema = yup.object({
   email: yup
@@ -21,7 +25,8 @@ const validationSchema = yup.object({
     .min(8, 'The password should have at minimum length of 8'),
 });
 
-const Form = () => {
+const Form = (props) => {
+  console.log("SIGNIN FORM :::: Props  ",props);
   const initialValues = {
     email: '',
     password: '',
@@ -62,8 +67,32 @@ const Form = () => {
           Login to manage your account.
         </Typography>
       </Box>
+      <Grid container spacing={4}>
+
+      <Grid item xs={12}>
+          <Stack spacing={2}>
+          {Object.values(props).map((provider) => (
+            <div key={provider.name}>
+              {/* <button onClick={() => signIn(provider.id)}>
+                Sign in with {provider.name}
+              </button> */}
+              <Button startIcon={<GoogleIcon />} onClick={() => signIn(provider.id,{callbackUrl: `http://localhost:3000`})} size={'large'} variant={'contained'}>
+                  Sign in with {provider.name}
+              </Button>
+            </div>
+            
+      ))}
+      
+      </Stack>
+
+          </Grid>
+
+      </Grid>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
+
+          
+
           <Grid item xs={12}>
             <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
               Enter your email

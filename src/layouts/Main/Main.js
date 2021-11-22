@@ -3,20 +3,25 @@ import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import AppBar from '@mui/material/AppBar';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 import Container from '../../../components/Container';
 import { Topbar, Sidebar, Footer, ThemeModeToggler } from './components';
-import GAppBarFixed from './components/GAppBarFixed'
+import Typography from '@mui/material/Typography';
 
 import pages from '../navigation';
 
-const Main = ({ children, colorInvert = false, bgcolor = 'transparent',menu }) => {
-  console.log("Main Component ::::: ", menu.navs[0]);
+import { useSession } from "next-auth/react";
+
+import Auth from '../../auth/Auth'
+
+const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
+  
+  const { data: session, status } = useSession();
+  const [flag, setFlag] = React.useState(false);
+
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -48,6 +53,7 @@ const Main = ({ children, colorInvert = false, bgcolor = 'transparent',menu }) =
             justifyContent={'flex-end'}
             alignItems={'center'}
           >
+            <Auth/>
             <Box>
               <ThemeModeToggler />
             </Box>
@@ -66,7 +72,6 @@ const Main = ({ children, colorInvert = false, bgcolor = 'transparent',menu }) =
         <Container paddingY={1}>
           <Topbar
             onSidebarOpen={handleSidebarOpen}
-            pages={menu.navs[0]}
             colorInvert={trigger ? false : colorInvert}
           />
         </Container>

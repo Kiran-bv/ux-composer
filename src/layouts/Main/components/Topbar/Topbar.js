@@ -13,15 +13,35 @@ import {signIn, signOut } from "next-auth/react"
 
 import Link from 'next/link'
 import Typography from '@mui/material/Typography';
-import GPopOver from '../../../../util/GPopOver'
+import GPopOver from '../../../../util/GPopOver';
+import { useSession } from "next-auth/react";
 
-const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
+import AppConfig from '../../../../../appConfig'
 
-  console.log("Topbar ::: ",pages)
+const Topbar = ({ onSidebarOpen, colorInvert = false }) => {
 
-  const[data, setData] = React.useState();
+  //console.log("Topbar ::: ",pages)
+
+  const { data: session, status } = useSession();
+  const [flag, setFlag] = React.useState(false);
+
+  console.log("Topbar session ::: ",session);
+  console.log("Topbar status ::: ",status);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openedPopoverId,setOpenedPopoverId] = React.useState(null);
+
+  // React.useEffect(async ()=>{
+  //   console.log("TopBar ::: UseEffect , ",status);
+  //   if(status === "authenticated"){
+  //     setFlag(true);
+  //     console.log("Session after login ::: ", session);
+  //     const res = await fetch(AppConfig.baseUrl+AppConfig.api.menu, {method: 'POST'});
+  //     const data = await res.json();
+  //     console.log("Login Data menu ::: ", data);
+  //   }
+
+  // },[status])
 
   const handlePopoverOpen = (event,popoverId) => {
     //alert('hehhehehe');
@@ -34,13 +54,48 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
     setAnchorEl(null);
   };
 
+  // const getAuth = () => {
+  //   if (status === "authenticated") {
+  //     return <Box marginRight={2}
+  //               padding={0.5}
+  //               display={'inline-flex'}
+  //               borderRadius={1}
+  //               bgcolor={'primary.main'}
+  //               marginLeft={1}
+  //             >
+  //               <Button  onClick={() => signOut()}>
+  //                 <Typography
+  //                   variant={'caption'}
+  //                   sx={{ color: 'common.white', lineHeight: 1 }}
+  //                 >
+  //                     SignOut
+  //                 </Typography>
+  //               </Button>
+  //         </Box>
+  //   }else{
+  //     return <Box marginRight={2}
+  //               padding={0.5}
+  //               display={'inline-flex'}
+  //               borderRadius={1}
+  //               bgcolor={'primary.main'}
+  //               marginLeft={1}
+  //             >
+  //               <Button  onClick={() => signIn()}>
+  //                 <Typography
+  //                   variant={'caption'}
+  //                   sx={{ color: 'common.white', lineHeight: 1 }}
+  //                 >
+  //                     SignIn
+  //                 </Typography>
+  //               </Button>
+  //         </Box>
+  //   }
+  // }
+
   const open = Boolean(anchorEl);
-  
-
-
   const state = useSelector((state) => state);
-
-  console.log(">>>>>>>>>>>>>>  REDUX STATE FROM TOPBAR <<<<<<<<<<<<<<<<<", state);
+  console.log(">>>>>>>>>>>>>>  REDUX STATE FROM TOPBAR <<<<<<<<<<<<<<<<< new", state.headerfooter.headerData.navs);
+  const pages = state.headerfooter.headerData.navs === undefined ? undefined :state.headerfooter.headerData.navs[0];
 
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -78,19 +133,28 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         />
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-
         {
-          pages.elements.map((element,i)=>(
+         pages && pages.elements.map((element,i)=>(
             <>
-                <Box marginLeft={3} onMouseEnter={(e) => handlePopoverOpen(e, i)} onMouseLeave={handlePopoverClose}>
-                  <Link href="/table">
+              {/* onMouseLeave={handlePopoverClose}    */}
+                <Box marginLeft={3} onMouseEnter={(e) => handlePopoverOpen(e, i)} >
+                  <Link  underline="none" href={element.url ? '/product/'+element.url :''}>
                     {element.breadCrumpName}
                   </Link>
                 </Box>
-                <GPopOver open={openedPopoverId===i} anchorEl={anchorEl} id={'contact'} data={element.target.elements}/>
+                <GPopOver open={openedPopoverId===i} colorInvert={colorInvert} anchorEl={anchorEl} id={i} data={element.target.elements}/> 
+
+               {/* <Box marginLeft={2}>
+                        <NavItem
+                          title={element.breadCrumpName}
+                          id={i}
+                          items={element.target.elements}
+                          colorInvert={colorInvert}/>  
+              </Box> */}
             </>
           ))
         }
+       
       
       {/* <Box>
         <Link href="/hello">

@@ -8,7 +8,7 @@ import Main from '../../layouts/Main';
 import Container from '../../../components/Container';
 import { Form } from './components';
 
-const SigninSimple = () => {
+const SigninSimple = (props) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -32,7 +32,7 @@ const SigninSimple = () => {
                   <Box
                     component={'img'}
                     src={
-                      'https://assets.maccarianagency.com/svg/illustrations/drawkit-illustration2.svg'
+                      'https://www.wishkarma.com/landing-banner.jpg'
                     }
                     width={1}
                     height={1}
@@ -54,7 +54,7 @@ const SigninSimple = () => {
               xs={12}
               md={6}
             >
-              <Form />
+              <Form {...props}/>
             </Grid>
           </Grid>
         </Container>
