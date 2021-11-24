@@ -1,116 +1,95 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Slider from 'react-slick';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import {api} from '../scripts/api'
 
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
+const mock = [
+  'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/google-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/hubspot-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/mapbox-original.svg',
+  'https://assets.maccarianagency.com/svg/logos/slack-original.svg',
+];
 
-class MultiplePopover extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      open: false,
-      anchorEl: null,
-    };
-    this.handlePopoverOpen = this.handlePopoverOpen.bind(this);
-    this.handlePopoverClose = this.handlePopoverClose.bind(this);
+const Partners = ({universities,menu}) => {
+  console.log("Api is ",api);
+  console.log('universities ', universities);
+  console.log('menu ', menu);
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.up('xs'), {
+    defaultMatches: true,
+  });
+  const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
+    defaultMatches: true,
+  });
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+  const isLg = useMediaQuery(theme.breakpoints.up('lg'), {
+    defaultMatches: true,
+  });
+
+  let slidesToShow = 2;
+  if (isXs) {
+    slidesToShow = 2;
   }
-  handlePopoverOpen(event, popoverId) {
-    this.setState({
-      openedPopoverId: popoverId,
-      anchorEl: event.target,
-    });
+  if (isSm) {
+    slidesToShow = 3;
   }
-  handlePopoverClose() {
-    this.setState({
-      openedPopoverId: null,
-      anchorEl: null,
-    });
+  if (isMd) {
+    slidesToShow = 4;
+  }
+  if (isLg) {
+    slidesToShow = 5;
   }
 
-  render() {
-    const { classes } = this.props;
-    const { anchorEl, openedPopoverId } = this.state;
+  const sliderOpts = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow,
+    slidesToScroll: 1,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 2000,
+  };
 
-    const multi = [
-      {
-        _id: 0,
-        name: 'name1',
-        hoverText: 'text1',
-        linkUrl: '#',
-      },
-      {
-        _id: 1,
-        name: 'name2',
-        hoverText: 'text2',
-        linkUrl: '#',
-      },
-      {
-        _id: 2,
-        name: 'name3',
-        hoverText: 'text3',
-        linkUrl: '#',
-      },
-    ]
-
-  console.log(openedPopoverId)
-
-    return (
-      <div className="wrapper">
-        <ul>
-          {multi.map(m => (
-            <li
-              key={m._id}
-            >
-              <Typography
-                onMouseEnter={(e) => this.handlePopoverOpen(e, m._id)}
-                //onMouseLeave={this.handlePopoverClose}
-              >
-                {m.name} 
-              </Typography>
-              <div onMouseLeave={this.handlePopoverClose}>
-              <Popover
-        
-        sx={{
-          pointerEvents: 'none',
-        }}
-        open={openedPopoverId === m._id}
-        anchorEl={anchorEl}
-        onMouseLeave={this.handlePopoverClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        PaperProps={{
-          style: { width: '100%',height:'50%' },
-        }}
-        //onClose={handlePopoverClose}
-        disableRestoreFocus
-      >
-                <Typography>
-                  <a
-                    href="{m.linkUrl}"
-                    target=" /blank"
-                  >
-                    {m.hoverText}
-                  </a>
-                </Typography>
-              </Popover>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      
-    );
-  }
-}
-
-MultiplePopover.propTypes = {
-  classes: PropTypes.object.isRequired,
+  return (
+    <Box>
+      <Slider {...sliderOpts}>
+        {mock.map((item, i) => (
+          <Box maxWidth={240} key={i} marginX={3}>
+            <Box
+              component="img"
+              backgroundColor='cyan'
+              src={item}
+              alt="..."
+              
+            />
+          </Box>
+        ))}
+      </Slider>
+    </Box>
+  );
 };
 
-export default MultiplePopover;
+export default Partners;
+
+// export async function getStaticProps() {
+//   const res = await api.getUniversities('India');
+//  // const data = await res.json();
+//   console.log("getStaticProps ########## Universities JSON Data :::::: ", res);
+
+//   const res1 = await api.getMenuData();
+//   console.log("getStaticProps ########## getMenuData JSON Data :::::: ", res1);
+
+//   return {
+//       props: { universities: res,menu:res1 }
+//   }
+// }

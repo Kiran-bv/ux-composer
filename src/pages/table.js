@@ -40,12 +40,12 @@ export default function Table(props){
 }*/
 
 
-// export async function getServerSideProps(context) {
-//     const res = await fetch(AppConfig.baseUrl+AppConfig.api.table);
-//     const data = await res.json();
-//     console.log("getServerSideProps ::: ########## Table JSON Data :::::: ", data);
-//     return {
-//         props: { users: data }
-//     }
-// }
+export async function getServerSideProps(context) {
+    const res = await fetch(AppConfig.baseUrl+AppConfig.api.table);
+    const data = await res.json();
+    console.log("getServerSideProps ::: ########## Table JSON Data :::::: ", data);
+    return {
+        props: { users: data }
+    }
+}
 
