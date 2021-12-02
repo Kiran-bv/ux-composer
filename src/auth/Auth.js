@@ -18,9 +18,10 @@ const Auth = () => {
     if(status === "authenticated"){
       setFlag(true);
       console.log("Session after login ::: ", session);
+      sessionStorage.setItem("accessToken",session.accessToken);
       const res = await fetch(AppConfig.baseUrl+AppConfig.api.menu, {method: 'POST'});
       const data = await res.json();
-      console.log("Login Data menu ::: ", data);
+      console.log("sessionStorage accessToken ::: ", sessionStorage.getItem("accessToken"));
     }
 
   },[status])

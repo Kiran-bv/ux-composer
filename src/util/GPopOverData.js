@@ -5,12 +5,23 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
+import Link from 'next/link'
+
 const GPopOverData = ({items,colorInvert}) => {
     const theme = useTheme();
     const [activeLink, setActiveLink] = useState('');
     useEffect(() => {
       setActiveLink(window && window.location ? window.location.pathname : '');
     }, []);
+
+    // window.addEventListener('click', (event) => {
+    //   alert('AddEventListener from button click !!! ' + event.target.id);
+    //   event.preventDefault()
+    // },false);
+
+    const test = (name) => {
+        alert('from button click !!!');
+    }
   
     const hasActiveLink = () => items.find((i) => i.href === activeLink);
     const linkColor = colorInvert ? 'common.white' : 'text.primary';
@@ -45,7 +56,9 @@ const GPopOverData = ({items,colorInvert}) => {
                         {
                              p.target.elements && p.target.elements.map((subProd)=>(
                                 <Box marginLeft={2}>
-                                   <Button variant="outlined"> {subProd.displayName} </Button>
+                                  <Link  underline="none" href={subProd.url ? '/summaryDetails/'+subProd.url :'all-diverters'}>
+                                    <Button id={subProd.displayName} onClick={()=>test(subProd.displayName)} variant="outlined"> A {subProd.displayName} </Button>
+                                  </Link>
                                 </Box>
 
                              ))

@@ -16,7 +16,7 @@ const mock = [
   'https://assets.maccarianagency.com/svg/logos/slack-original.svg',
 ];
 
-const mockNew = [
+const mockNew_old= [
   'https://res.cloudinary.com/dzd0mlvkl/image/upload/v1611429186/aeb9200d-6ab1-b9a1-4284-841c2f577514',
   'https://res.cloudinary.com/dzd0mlvkl/image/upload/v1611429186/vlgqy0p2upeljer5tpsf',
   'https://res.cloudinary.com/dzd0mlvkl/image/upload/v1611429186/d6040273-4a57-6959-1510-810f949ed5b1',
@@ -25,6 +25,13 @@ const mockNew = [
   'https://res.cloudinary.com/dzd0mlvkl/image/upload/v1611429186/d6040273-4a57-6959-1510-810f949ed5b1'
 
 ]
+
+const mockNew = [
+  'https://res.cloudinary.com/dzd0mlvkl/image/upload/fl_progressive/v1423542814/pygje1vddmdcoefphxr8.jpg',
+  'https://res.cloudinary.com/dzd0mlvkl/image/upload/fl_progressive/v1423542814/pygje1vddmdcoefphxr8.jpg',
+  'https://res.cloudinary.com/dzd0mlvkl/image/upload/fl_progressive/v1423542814/pygje1vddmdcoefphxr8.jpg'
+]
+
 
 const Partners = () => {
   console.log("------->  From Partners");

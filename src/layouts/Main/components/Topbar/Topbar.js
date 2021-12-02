@@ -138,12 +138,14 @@ const Topbar = ({ onSidebarOpen, colorInvert = false }) => {
             <>
               {/* onMouseLeave={handlePopoverClose}    */}
                 <Box marginLeft={3} onMouseEnter={(e) => handlePopoverOpen(e, i)} >
-                  <Link  underline="none" href={element.url ? '/product/'+element.url :''}>
+                  <Link  underline="none" href={element.url ? '/summary/'+element.url :''}>
                     {element.breadCrumpName}
                   </Link>
                 </Box>
-                <GPopOver open={openedPopoverId===i} colorInvert={colorInvert} anchorEl={anchorEl} id={i} data={element.target.elements}/> 
-
+                <div id="popup-container" onMouseEnter={(e) => handlePopoverOpen(e, i)}>
+                  <GPopOver data={element.target.elements} open={openedPopoverId===i} colorInvert={colorInvert} anchorEl={anchorEl} id={i}/> 
+                </div>
+              
                {/* <Box marginLeft={2}>
                         <NavItem
                           title={element.breadCrumpName}

@@ -64,6 +64,7 @@
                                         },
                                         {
                                             "displayName": "Diverters",
+                                            "url":"all-diverters",
                                             "target": {
                                                 "schema": "Product",
                                                 "filters": {

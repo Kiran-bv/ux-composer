@@ -25,7 +25,7 @@ const NavItem = ({ title, id, items, colorInvert = false }) => {
   };
 
   const handlePopoverOpen = (event,popoverId) => {
-    alert('hehhehehe' + popoverId+','+id);
+    //alert('hehhehehe' + popoverId+','+id);
     setAnchorEl(event.target);
     setOpenedPopoverId(popoverId);
   };

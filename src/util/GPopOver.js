@@ -42,7 +42,7 @@ export default function GPopOver({open,anchorEl,data,id,colorInvert}) {
           horizontal: 'center',
         }}
         PaperProps={{
-          style: { width: '100%',height:'50%' },
+          style: { width: '100%',height:'50%',backgroundColor:'cyan',left:'80px' },
         }}
         //onClose={handlePopoverClose}
         disableRestoreFocus

@@ -13,7 +13,8 @@ import {
   Partners
 } from './components';
 
-import Hero1 from './components/Hero/Hero1'
+import Hero1 from './components/Hero/Hero1';
+import Spaces from './components/Courses'
 
 import { useSelector, useDispatch } from 'react-redux';
 import { header,footer} from '../../redux/actions';
@@ -30,12 +31,13 @@ const IndexView = (props) => {
     <Box sx={{ overflowX: 'hidden' }}>
       {/* <Main bgcolor={'background.paper'}> */}
          <Hero />
+         <Container>
+          <Spaces/>
+        </Container>
         {/* <Container>
           <Services />
         </Container>
-        <Container>
-          <Partners/>
-        </Container> */}
+         */}
         <Box
           sx={{
             backgroundImage: `linear-gradient(to bottom, ${alpha(

@@ -50,11 +50,11 @@ export default function MouseOverPopover() {
     </div>
   );
 }
-export async function getStaticProps() {
-    const res = await fetch(AppConfig.baseUrl+AppConfig.api.table);
-    const data = await res.json();
-    console.log("getStaticProps ########## Table JSON Data :::::: ", data);
-    return {
-        props: { users: data }
-    }
-}
+// export async function getStaticProps() {
+//     const res = await fetch(AppConfig.baseUrl+AppConfig.api.table);
+//     const data = await res.json();
+//     console.log("getStaticProps ########## Table JSON Data :::::: ", data);
+//     return {
+//         props: { users: data }
+//     }
+// }

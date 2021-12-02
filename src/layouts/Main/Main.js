@@ -10,18 +10,25 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Container from '../../../components/Container';
 import { Topbar, Sidebar, Footer, ThemeModeToggler } from './components';
 import Typography from '@mui/material/Typography';
+import FixedRightSidebar from './components/FixedSidebar/FixedRightSidebar'
+import FixedLeftSidebar from './components/FixedSidebar/FixedLeftSidebar'
 
 import pages from '../navigation';
 
 import { useSession } from "next-auth/react";
 
-import Auth from '../../auth/Auth'
+import Auth from '../../auth/Auth';
+import { useSelector } from 'react-redux';
 
 const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
-  
-  const { data: session, status } = useSession();
-  const [flag, setFlag] = React.useState(false);
 
+
+  const state = useSelector((state) => state);
+  console.log("---------->>>>  REDUX STATE FROM MAIN <<<<<<<<<<<<<<<<< ABC", state.headerfooter.headerData.navs);
+  const categories = state.headerfooter.headerData.navs === undefined ? undefined :state.headerfooter.headerData.navs[0];
+
+
+  
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -60,7 +67,7 @@ const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
           </Box>
         </Container>
       </Box>
-      {/* <GAppBarFixed/> */}
+      
        <AppBar
         position={'sticky'}
         sx={{
@@ -76,6 +83,8 @@ const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
           />
         </Container>
       </AppBar>
+       {/* <FixedRightSidebar categories={categories}/> */}
+       {/* <FixedLeftSidebar categories={categories}/>  */}
       <Sidebar
         onClose={handleSidebarClose}
         open={open}

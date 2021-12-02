@@ -1,7 +1,10 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 export const utils = {
     makeWebRequest: (url, method, body) => {
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
+       // myHeaders.append("Authorization", `Bearer ${sessionStorage.getItem('accessToken')}`);
+        
         var requestOptions = {
             method: method,
             headers: myHeaders,

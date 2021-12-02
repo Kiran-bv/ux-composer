@@ -1,7 +1,8 @@
 import { utils } from './utils';
 export const api = {
     getUniversities,
-    getMenuData
+    getMenuData,
+    getProductInfo
 };
 
 function getUniversities(country){
@@ -9,4 +10,7 @@ function getUniversities(country){
 }
 function getMenuData(){
     return {id:1,menuItem:'Hello'}
+}
+function getProductInfo(slugInfo){
+    return utils.makeWebRequest('https://localhost:9500/generic/getSlugDetails','POST',{slug:slugInfo});
 }
