@@ -22,11 +22,11 @@ import { header,footer} from '../../redux/actions';
 const IndexView = (props) => {
   console.log('props from index is :::: ',props);
   const theme = useTheme();
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(header(props.menu))
-    //dispatch(footer(props.footer))
-  }, [dispatch])
+  // const dispatch = useDispatch()
+  // useEffect(() => {
+  //   dispatch(header(props.menu))
+  //   //dispatch(footer(props.footer))
+  // }, [dispatch])
   return (
     <Box sx={{ overflowX: 'hidden' }}>
       {/* <Main bgcolor={'background.paper'}> */}

@@ -15,33 +15,39 @@ import { useStore } from '../redux/store'
 import Main from '../layouts/Main';
 
 import { SessionProvider } from "next-auth/react"
-import AppConfig from '../../appConfig'
+import AppConfig from '../../appConfig';
+
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
 
 export default function App({ Component, pageProps:{ session, ...pageProps } }) {
   const store = useStore(pageProps.initialReduxState)
 
   console.log(":::::: Session object :::::: ",session);
-  console.log(":::::: pageProps object :::::: ",pageProps);
-  
+  console.log(":::::: pageProps abc object :::::: ",pageProps);
+  console.log(":::::: Component is :::: ", Component);
+  const persistor = persistStore(store);
   return (
     <SessionProvider session={session}>
     <Provider store={store}>
-    <React.Fragment>
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <title>UI COMPOSER | UI Kit by CLOUDSEED.</title>
-      </Head>
-      
-      <Page>
-        <Main>
-          <Component {...pageProps} />
-        </Main>
-      </Page>
-      
-    </React.Fragment>
+      <PersistGate loading={null} persistor={persistor}>
+        <React.Fragment>
+          <Head>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            />
+            <title>UI COMPOSER | UI Kit by CLOUDSEED.</title>
+          </Head>
+          
+          <Page>
+            <Main>
+              <Component {...pageProps}/>
+            </Main>
+          </Page>
+          
+        </React.Fragment>
+      </PersistGate>
     </Provider>
     </SessionProvider>
   );
@@ -51,19 +57,18 @@ App.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
-// export async function getStaticProps() {
-//   const res = await fetch(AppConfig.baseUrl+AppConfig.api.menu);
-//   const data = await res.json();
-//   console.log("getServerSideProps ::: ########## Menu JSON Data :::::: ", data);
 
-//   // const footerRes = await fetch(AppConfig.baseUrl+AppConfig.api.footer);
-//   // const footerData = await footerRes.json();
-//   // console.log("getServerSideProps ::: ########## Footer Data JSON Data :::::: ", footerData);
+export async function getStaticProps() {
+  const res = await fetch(AppConfig.baseUrl+AppConfig.api.menu);
+  const data = await res.json();
+  console.log("getServerSideProps ::: ########## Menu JSON Data :::::: ", data);
 
-//   return {
-//       props: { 
-//         menu: data
-//        // footer: footerData
-//       }
-//   }
-// }
+ // const footerRes = await fetch(AppConfig.baseUrl+AppConfig.api.footer);
+ // const footerData = await footerRes.json();
+ // console.log("getServerSideProps ::: ########## Footer Data JSON Data :::::: ", footerData);
+ return {
+     props: { 
+       menu: data
+     }
+ }
+}

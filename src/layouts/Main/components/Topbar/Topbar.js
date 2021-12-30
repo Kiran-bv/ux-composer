@@ -137,14 +137,19 @@ const Topbar = ({ onSidebarOpen, colorInvert = false }) => {
          pages && pages.elements.map((element,i)=>(
             <>
               {/* onMouseLeave={handlePopoverClose}    */}
-                <Box marginLeft={3} onMouseEnter={(e) => handlePopoverOpen(e, i)} >
-                  <Link  underline="none" href={element.url ? '/summary/'+element.url :''}>
+                <Box key={i} marginLeft={3} onMouseEnter={(e) => handlePopoverOpen(e, i)} >
+                  {/* <Link  underline="none" href={element.url ? '/summary/'+element.url :''}>
+                    {element.breadCrumpName}
+                  </Link> */}
+
+                  <Link underline="none" href={element.url ? '/summary/'+element.url :''}>
                     {element.breadCrumpName}
                   </Link>
+  
                 </Box>
-                <div id="popup-container" onMouseEnter={(e) => handlePopoverOpen(e, i)}>
+                {/* <div id="popup-container" onMouseEnter={(e) => handlePopoverOpen(e, i)}>
                   <GPopOver data={element.target.elements} open={openedPopoverId===i} colorInvert={colorInvert} anchorEl={anchorEl} id={i}/> 
-                </div>
+                </div> */}
               
                {/* <Box marginLeft={2}>
                         <NavItem
