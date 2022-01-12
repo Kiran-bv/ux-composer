@@ -1,9 +1,22 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-const DetailsView = ({viewDetails}) => {
+import useSWR from 'swr';
+
+
+const fetcher = (url,payload) => fetch(url,payload).then((res) => res.json())
+
+const DetailsView = ({viewDetails,org}) => {
 
     console.log("View Details from DetailsView ::: ", viewDetails);
+
+    let manufaturerNamePayload = {org:org,schema:"Manufacturer",recordId:viewDetails.record.Manufacturer}
+
+    let url = "https://localhost:9500/generic/getSchemaRecordForView?data="+JSON.stringify(manufaturerNamePayload)
+    //console.log('Manufacturer Name URL :::: ', url);
+    const { data, error } = useSWR(url, fetcher);
+    if (!data) return <div>loading...</div>
+    console.log("Data from useSwr", data);
 
     return(
         <Box>
@@ -34,15 +47,15 @@ const DetailsView = ({viewDetails}) => {
                 <Box sx={{display:'flex', justifyContent:'space-between'}}>
                     <Box>
                         <Typography sx={{ fontWeight: 'bold' }} variant="h5">Manufacturer</Typography>
-                        <Typography>Test</Typography>
+                        <Typography>{data.record.name}</Typography>
                     </Box>
                     <Box>
                         <Typography sx={{ fontWeight: 'bold' }}>Style</Typography>
-                        <Typography>Test</Typography>
+                        <Typography>{viewDetails.record.style}</Typography>
                     </Box>
                     <Box>
                         <Typography sx={{ fontWeight: 'bold' }}>Shape</Typography>
-                        <Typography>Square</Typography>
+                        <Typography>{viewDetails.record.shape}</Typography>
                     </Box>
                 </Box>
             </Box>

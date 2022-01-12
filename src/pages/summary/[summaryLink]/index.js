@@ -1,19 +1,9 @@
-// import { useRouter } from 'next/router'
-
-// const Product = () => {
-//   const router = useRouter();
-//   const { productType } = router.query
-
-//   return <p>Product Type index :: {productType}</p>
-// }
-
-// export default Product
-
+import {useEffect} from 'react';
 import { useRouter } from 'next/router';
 import APPConfig from '../../../../appConfig';
-import {api} from '../../../scripts/api';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import SummaryView from '../../../views/Summary';
+import { addBreadcrumbs} from '../../../redux/actions';
 
 
 const Summary = () => {
@@ -21,10 +11,17 @@ const Summary = () => {
   const state = useSelector((state) => state);
   console.log("state from summary >>>>> ", state);
   const { summaryLink } = router.query;
-  const pages = state.headerfooter.headerData.navs === undefined ? undefined :state.headerfooter.headerData.navs[0];
 
-
-  //console.log("Product Info ::: ", productInfo);
+  const dispatch = useDispatch()
+  
+  let breadCrumb = {displayName:summaryLink,path:'summary/'+summaryLink}
+  useEffect(() => {
+    dispatch(addBreadcrumbs(breadCrumb))
+  }, [])
+  //dispatch(addBreadcrumbs(breadCrumb))
+  const pages = state.persistedReducer.headerfooter.headerData.navs === undefined ? undefined :state.persistedReducer.headerfooter.headerData.navs[0];
+  console.log("summaryLink  ::: ", summaryLink);
+  
   console.log("pages from summary >>>> " ,pages);
 
   let subElements = null;
@@ -46,8 +43,6 @@ export default Summary
 
 export async function getStaticProps(context) {
   console.log('context from getStaticProps summaryLink :::: ', context.params.summaryLink);
-  // const res = await api.getProductInfo('all-diverters');
-  // console.log("getStaticProps ########## getProductInfo JSON Data :::::: ", res);
   return {
       props: {}
   }

@@ -5,7 +5,8 @@ export const api = {
     getProductInfo,
     getSchemaRecords,
     getSchemaRecordCount,
-    getApplicableFilters
+    getApplicableFilters,
+    getManufacturerName
 };
 
 function getUniversities(country){
@@ -25,4 +26,7 @@ function getSchemaRecordCount(payload){
 }
 function getApplicableFilters(payload){
     return utils.makeWebRequest('https://localhost:9500/generic/getApplicableFilters','POST',payload)
+}
+function getManufacturerName(payload){
+    return utils.makeWebRequest('https://localhost:9500/generic/getSchemaRecordForView?data='+JSON.stringify(payload))
 }

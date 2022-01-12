@@ -3,9 +3,11 @@ import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 import reducers from './reducers'
+import singleusereducers from './singleusereducers'
 
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { combineReducers } from 'redux'
 
 let store
 
@@ -17,9 +19,16 @@ const persistConfig = {
 function initStore(initialState) {
 
   const persistedReducer = persistReducer(persistConfig, reducers)
+  const allReducers = {
+    
+    persistedReducer: persistedReducer,
+    //singleUseReducers: singleusereducers
+  }
+
+  
 
   return createStore(
-    persistedReducer,
+    combineReducers(allReducers),
     initialState,
     composeWithDevTools(applyMiddleware(thunkMiddleware))
   )

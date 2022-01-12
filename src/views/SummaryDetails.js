@@ -17,7 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import {api} from '../scripts/api';
-import FiltersView from './FiltersView'
+import FiltersView from './FiltersViewNew'
 
 const SummaryDetails = ({schemaRecords,summaryDetailsLink,schemaRecordsCount,payload,applicableFilters}) => {
   const theme = useTheme();
@@ -28,14 +28,8 @@ const SummaryDetails = ({schemaRecords,summaryDetailsLink,schemaRecordsCount,pay
   const [page, setPage] = useState('');
   const [schemaRecordsArr, setSchemaRecordsArr] = useState(schemaRecords);
 
-  // useEffect(() => {
-  //   alert("page loading");
-  //   //setSchemaRecordsArr(schemaRecords);
-  // }, [schemaRecordsArr]);
-
   const handleChange = async (event) => {
     setPage(event.target.value);
-    //alert(event.target.value);
     console.log('skip number is :: ', (event.target.value-1)*24);
     payload.skip = (event.target.value-1)*24;
     console.log("new payload is ::: ",payload);
@@ -44,7 +38,17 @@ const SummaryDetails = ({schemaRecords,summaryDetailsLink,schemaRecordsCount,pay
     setSchemaRecordsArr(schemaRecords);
   };
 
-  //console.log("Summary Details records new::: ", schemaRecords);
+  const handleFilters = async (filter) => {
+     console.log(" Payload ::: ",payload);
+      console.log('Filters from child to parent',filter);
+      let exisitingFilter = payload.filters;
+      payload.filters = {...exisitingFilter, [filter.filterKey]:filter.filterValue}
+      console.log("Extra filters added ::: ",payload);
+
+      let schemaRecords =  await api.getSchemaRecords(payload);
+      console.log("Filtered schema records :: ", schemaRecords);
+      setSchemaRecordsArr(schemaRecords);
+  }
   console.log("type of schemaRecordsCount", typeof(schemaRecordsCount));
   console.log("Number of pages ", Math.ceil(schemaRecordsCount.total/24))
 
@@ -74,7 +78,7 @@ const SummaryDetails = ({schemaRecords,summaryDetailsLink,schemaRecordsCount,pay
           Better way to find a property
         </Typography>
         <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <InputLabel id="demo-simple-select-label">Select Page</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -87,7 +91,7 @@ const SummaryDetails = ({schemaRecords,summaryDetailsLink,schemaRecordsCount,pay
               }
             </Select>
         </FormControl>
-        <FiltersView applicableFilters={applicableFilters}/>
+        <FiltersView applicableFilters={applicableFilters} handleFilters={handleFilters}/>
       </Box>
 
       <Grid container spacing={4}>

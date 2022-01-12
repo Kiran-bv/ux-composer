@@ -30,3 +30,6 @@ export const header = (headerData) => ({type:types.MENUDATA,header:headerData})
 
 //Footer Data
 export const footer = (headerData) => ({type:types.FOOTERDATA,footer:headerData})
+
+//Breadcrumbs data
+export const addBreadcrumbs = (entry) => ({type:types.BREADCRUMBS,breadcrumbsData:entry})

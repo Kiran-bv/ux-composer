@@ -60,8 +60,9 @@ export async function getStaticProps(context) {
                              "sortBy":"displayPriority",
                              "sortOrder":"descend"
                           }      
-              
+  console.log("schemaRecords payload ::: ", payload);       
   let schemaRecords =  await api.getSchemaRecords(payload);
+  console.log('schemaRecords ::: ', schemaRecords);
 
   let totalCountPayload = {
     "forCounts":true,
@@ -80,6 +81,20 @@ export async function getStaticProps(context) {
   };
   console.log("filtersPayload :::",filtersPayload);
   let applicableFilters =  await api.getApplicableFilters(filtersPayload);
+
+  let manufacturerPayload = { "schema":"Manufacturer","org":data.navType}
+  if(applicableFilters.Manufacturer){
+    let nameMap=[];
+    // for(let itemId of applicableFilters.Manufacturer){
+    //   manufacturerPayload.recordId=itemId;
+    //   console.log('new Manufacturer payload',manufacturerPayload);
+    //   let manufacturerRes =  await api.getManufacturerName(manufacturerPayload);
+    //   //console.log('Get ManufacturerName response ',manufacturerRes);
+    //   nameMap.push(manufacturerRes.record.name);
+    // }
+    console.log("Manufacturer names array :::: ",nameMap);
+    applicableFilters.Manufacturer = nameMap;
+  }
   
   return {
       props: { 

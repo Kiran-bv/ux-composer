@@ -20,6 +20,8 @@ import AppConfig from '../../appConfig';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 
+import GBreadCrumbs from '../layouts/Main/GBreadCrumbs'
+
 export default function App({ Component, pageProps:{ session, ...pageProps } }) {
   const store = useStore(pageProps.initialReduxState)
 
@@ -29,26 +31,25 @@ export default function App({ Component, pageProps:{ session, ...pageProps } }) 
   const persistor = persistStore(store);
   return (
     <SessionProvider session={session}>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <React.Fragment>
-          <Head>
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1, shrink-to-fit=no"
-            />
-            <title>UI COMPOSER | UI Kit by CLOUDSEED.</title>
-          </Head>
-          
-          <Page>
-            <Main>
-              <Component {...pageProps}/>
-            </Main>
-          </Page>
-          
-        </React.Fragment>
-      </PersistGate>
-    </Provider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <React.Fragment>
+            <Head>
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1, shrink-to-fit=no"
+              />
+              <title>UI COMPOSER | UI Kit by CLOUDSEED.</title>
+            </Head>
+            <Page>
+              <Main>
+                <GBreadCrumbs/>
+                <Component {...pageProps}/>
+              </Main>
+            </Page>
+          </React.Fragment>
+        </PersistGate>
+      </Provider>
     </SessionProvider>
   );
 }

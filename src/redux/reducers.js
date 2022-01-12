@@ -74,12 +74,29 @@ const headerFooterReducer = (state=layoutState,{type,header,footer}) => {
 
 }
 
+//initial breadcrumbs data
+const breadCrumbsState= {crumbs:[]}
+const breadCrumbsReducer = (state=breadCrumbsState,{type,breadcrumbsData}) => {
+  switch (type) {
+      case types.BREADCRUMBS:
+          let crumbsArr = state.crumbs
+          var crumbsData = [...crumbsArr, breadcrumbsData]
+          state.crumbs = crumbsData;
+          console.log("### Redux ### Redux ### Redux breadCrumbs Data", crumbsData);
+          return state;
+      default:
+          return state
+  }
+}
+
+
 // COMBINED REDUCERS
 const reducers = {
   counter: counterReducer,
   timer: timerReducer,
-  login:loginReducer,
-  headerfooter:headerFooterReducer
+  login: loginReducer,
+  headerfooter: headerFooterReducer,
+  breadCrumbs: breadCrumbsReducer
 }
 
 export default combineReducers(reducers)

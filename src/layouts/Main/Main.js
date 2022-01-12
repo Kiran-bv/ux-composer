@@ -24,8 +24,9 @@ const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
 
 
   const state = useSelector((state) => state);
-  console.log("---------->>>>  REDUX STATE FROM MAIN <<<<<<<<<<<<<<<<< ABC", state.headerfooter.headerData.navs);
-  const categories = state.headerfooter.headerData.navs === undefined ? undefined :state.headerfooter.headerData.navs[0];
+  console.log("state is ::: ",state);
+  console.log("---------->>>>  REDUX STATE FROM MAIN <<<<<<<<<<<<<<<<< ABC", state.persistedReducer.headerfooter.headerData.navs);
+  const categories = state.persistedReducer.headerfooter.headerData.navs === undefined ? undefined :state.persistedReducer.headerfooter.headerData.navs[0];
 
 
   

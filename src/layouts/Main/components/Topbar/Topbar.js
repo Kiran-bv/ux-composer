@@ -16,7 +16,9 @@ import Typography from '@mui/material/Typography';
 import GPopOver from '../../../../util/GPopOver';
 import { useSession } from "next-auth/react";
 
-import AppConfig from '../../../../../appConfig'
+import AppConfig from '../../../../../appConfig';
+
+import AutoFill from './AutoFill'
 
 const Topbar = ({ onSidebarOpen, colorInvert = false }) => {
 
@@ -94,8 +96,8 @@ const Topbar = ({ onSidebarOpen, colorInvert = false }) => {
 
   const open = Boolean(anchorEl);
   const state = useSelector((state) => state);
-  console.log(">>>>>>>>>>>>>>  REDUX STATE FROM TOPBAR <<<<<<<<<<<<<<<<< new", state.headerfooter.headerData.navs);
-  const pages = state.headerfooter.headerData.navs === undefined ? undefined :state.headerfooter.headerData.navs[0];
+  console.log(">>>>>>>>>>>>>>  REDUX STATE FROM TOPBAR <<<<<<<<<<<<<<<<< new", state.persistedReducer.headerfooter.headerData.navs);
+  const pages = state.persistedReducer.headerfooter.headerData.navs === undefined ? undefined :state.persistedReducer.headerfooter.headerData.navs[0];
 
   const theme = useTheme();
   const { mode } = theme.palette;
@@ -126,12 +128,14 @@ const Topbar = ({ onSidebarOpen, colorInvert = false }) => {
               ? '/small-panda.jpeg'
               : 'https://www.wishkarma.com/wishkarma-with-title.svg'
           }
-
-          
           height={1}
           width={1}
         />
       </Box>
+      <Box>
+        <Box>
+            <AutoFill pages={pages}/>
+        </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
         {
          pages && pages.elements.map((element,i)=>(
@@ -142,7 +146,7 @@ const Topbar = ({ onSidebarOpen, colorInvert = false }) => {
                     {element.breadCrumpName}
                   </Link> */}
 
-                  <Link underline="none" href={element.url ? '/summary/'+element.url :''}>
+                  <Link key={i} underline="none" href={element.url ? '/summary/'+element.url :''}>
                     {element.breadCrumpName}
                   </Link>
   
@@ -161,19 +165,6 @@ const Topbar = ({ onSidebarOpen, colorInvert = false }) => {
             </>
           ))
         }
-       
-      
-      {/* <Box>
-        <Link href="/hello">
-            <NavItem
-              title={'Landings'}
-              id={'landing-pages'}
-              items={landingPages}
-              colorInvert={colorInvert}
-            />
-        </Link>
-      </Box> */}
-
 
        {/* <Box marginLeft={4}>
           <Link href="/contact">
@@ -217,37 +208,7 @@ const Topbar = ({ onSidebarOpen, colorInvert = false }) => {
           Gallery
         </Link>
         </Box>*/}
-
-        {/* <Box marginLeft={4}>
-          <NavItem
-            title={'Furniture'}
-            id={'furniture-pages'}
-            items={furniturePages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Bathrooms'}
-            id={'bathtoom-pages'}
-            items={bathroomPages}
-            colorInvert={colorInvert}
-          />
-        </Box> */}
-
-        {/* <Box marginLeft={4}>
-          <Button
-            variant="contained"
-            color="primary"
-            component="a"
-            target="blank"
-            href="https://mui.com/store/items/the-front-landing-page/"
-            size="large"
-          >
-            Buy now
-          </Button>
-        </Box> */}
+      </Box>
       </Box>
       <Box sx={{ display: { xs: 'block', md: 'none' } }} alignItems={'center'}>
         <Button

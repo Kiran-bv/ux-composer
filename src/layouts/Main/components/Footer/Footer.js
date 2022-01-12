@@ -1,15 +1,25 @@
-import React from 'react';
+import {useState,useEffect, React} from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import useSWR from 'swr';
+
+const fetcher = (url,payload) => fetch(url,payload).then((res) => res.json())
 
 const Footer = () => {
   const theme = useTheme();
   const { mode } = theme.palette;
+  const [footerNav, setFooterNav] = useState();
 
+  let payload = {recordId:"Footer"}
+  const { data, error } = useSWR('https://localhost:9500/generic/getDefinition?data='+JSON.stringify(payload), fetcher);
+  if (!data) return <div>loading...</div>
+
+  console.log("Footer Def Data from useSwr", data);
+  //setFooterNav(data.footer.data.nav)
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -41,6 +51,36 @@ const Footer = () => {
               width={1}
             />
           </Box>
+          <Box sx={{ flexGrow: 1,backgroundColor:'black' }}>
+    <Grid container spacing={2}>
+     {
+     footerNav && footerNav.map((nav)=>(
+            <>
+             <Grid item xs={3} sx={{ flexGrow: 1}}>
+                   <Typography sx={{ mt: 4, ml:1, mb: 2,color:'white' }} variant="h4" component="div">
+                     {nav.name}
+                  </Typography>
+                  <Demo>
+                     <List sx={{  color:'black'}} dense={dense}>
+                         {
+                           nav.links.map((link)=>(
+                                   <ListItem key={link.displayName}>
+                                       <ListItemText
+                                         primary={link.displayName}
+                                       />
+                                     </ListItem>
+                           ))
+                         }
+                     </List>
+                  </Demo>
+                 </Grid>
+            </>
+
+          ))
+        }
+
+    </Grid>
+    </Box>
           <Box display="flex" flexWrap={'wrap'} alignItems={'center'}>
             <Box marginTop={1} marginRight={2}>
               <Link
@@ -50,7 +90,7 @@ const Footer = () => {
                 color="text.primary"
                 variant={'subtitle2'}
               >
-                Home
+                Home 123
               </Link>
             </Box>
             <Box marginTop={1} marginRight={2}>

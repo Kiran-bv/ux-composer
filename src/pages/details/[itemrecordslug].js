@@ -43,7 +43,7 @@ const ItemDetails = () => {
                 <title>{data && data.record && data.record.record_header}</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
               </Head>
-              <DetailsView viewDetails={data}/>
+              <DetailsView viewDetails={data} org={org}/>
           </>
   )
 }

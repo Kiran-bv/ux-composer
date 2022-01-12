@@ -6,6 +6,8 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
+import Chip from '@mui/material/Chip';
+import Box from '@mui/material/Box';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -18,10 +20,12 @@ const MenuProps = {
   },
 };
 
-export default function MultipleSelectCheckmarks({applicableFilters}) {
+export default function MultipleSelectCheckmarks({applicableFilters,key}) {
   const [personName, setPersonName] = React.useState([]);
   const [filters, setFilters] = React.useState({});
   const filtersArr = [];
+
+  const[key+'Filter','set'+key] = React.useState([]);
   
 
   const handleChange = (event,key) => {
@@ -32,34 +36,33 @@ export default function MultipleSelectCheckmarks({applicableFilters}) {
     console.log("filter key ::: ", key);
     console.log("filter value ::: ", value);
     filtersArr[key] = value;
-    setPersonName(
+    'set'+key(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
   };
 
-  const filterView = (key) => {
-    let filterObj = {[key]:[]}
-    filtersArr.push(filterObj);
-    //setFilters({...filters, key:[]})
-    // setMyState({
-    //   ...myState,
-    //   propB: false
-    // });
-    
-    if(key.includes('$'))
-      return;
-    return (
-      <FormControl sx={{ m: 1, width: 300 }}>
+  return (
+    <FormControl sx={{ m: 1, width: 300 }}>
       <InputLabel id="demo-multiple-checkbox-label">{key}</InputLabel>
       <Select
       labelId="demo-multiple-checkbox-label"
       id="demo-multiple-checkbox"
       multiple
-      value={personName}
+      value={key+'Filter'}
       onChange={(e)=>handleChange(e,key)}
-      input={<OutlinedInput label="Tag" />}
-      renderValue={(selected) => selected.join(', ')}
+    //   input={<OutlinedInput label="Tag" />}
+    //   renderValue={(selected) => selected.join(', ')}
+
+      input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+      renderValue={(selected) => (
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+          {selected.map((value) => (
+            <Chip key={value} label={value} />
+          ))}
+        </Box>
+      )}
+
       MenuProps={MenuProps}
       >
       {applicableFilters[key].map((name) => (
@@ -70,17 +73,5 @@ export default function MultipleSelectCheckmarks({applicableFilters}) {
       ))}
       </Select>
 </FormControl>
-
-    )
-  }
-
-  return (
-    <div>
-      {
-        Object.keys(applicableFilters).map((key)=>(
-          filterView(key)
-        ))
-      }  
-    </div>
   );
 }
